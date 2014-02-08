@@ -51,6 +51,6 @@ sudo nova-manage network create vmnet --fixed_range_v4=10.0.0.0/8 --network_size
 
 sudo nova-manage floating create --ip_range=172.16.1.0/24
 
-./scripts/novarestart.sh
+./openstack/novarestart.sh
 
 exit
