@@ -1,4 +1,27 @@
-nova/nova.conf
+#!/bin/bash
+
+#loopback is edited
+sudo sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mysql/my.cnf
+
+#creating nova i.e, compute node
+MYSQL_PASS=project
+
+mysql -uroot -p$MYSQL_PASS -e 'CREATE DATABASE nova;'
+
+mysql -uroot -p$MYSQL_PASS -e "GRANT ALL PRIVILEGES ON nova.* TO
+'nova'@'%'"
+
+mysql -uroot -p$MYSQL_PASS -e "GRANT ALL PRIVILEGES ON nova.* TO
+'nova'@'localhost'"
+
+mysql -uroot -p$MYSQL_PASS -e "SET PASSWORD FOR 'nova'@'%' =
+PASSWORD('$MYSQL_PASS');"
+
+mysql -uroot -p$MYSQL_PASS -e "SET PASSWORD FOR 'nova'@'localhost' =
+PASSWORD('$MYSQL_PASS');"
+
+sudo "--sql_connection=mysql://nova:project@172.16.0.1/nova">>/etc/nova/nova.conf
+
 
 sudo "--use_deprecated_auth">>/etc/nova/nova.conf
 
