@@ -21,6 +21,8 @@ PASSWORD('$MYSQL_PASS');"
 mysql -uroot -p$MYSQL_PASS -e "SET PASSWORD FOR 'nova'@'localhost' =
 PASSWORD('$MYSQL_PASS');"
 
+./openstack/etcnovaconf.sh
+
 sudo sed -i 's/kvm/qemu/g' /etc/nova/nova-compute.conf
 
 sudo nova-manage db sync
